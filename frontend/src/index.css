@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 246 243 238;
+    --foreground: 24 22 20;
+    --muted: 110 104 96;
+    --border: 222 217 209;
+    --surface: 252 250 247;
+    --surface-muted: 238 234 227;
+    --accent: 214 68 36;
+    --accent-foreground: 255 255 255;
+    --success: 22 128 90;
+    --warning: 202 130 12;
+    --danger: 200 40 40;
+    color-scheme: light;
+  }
+
+  .dark {
+    --background: 17 16 14;
+    --foreground: 243 239 232;
+    --muted: 162 155 145;
+    --border: 46 43 38;
+    --surface: 25 23 20;
+    --surface-muted: 34 31 27;
+    --accent: 240 110 72;
+    --accent-foreground: 17 16 14;
+    --success: 52 190 140;
+    --warning: 245 170 50;
+    --danger: 245 100 100;
+    color-scheme: dark;
+  }
+
+  * { @apply border-border; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  h1, h2, h3 { @apply font-display; text-wrap: balance; }
+  h1 { letter-spacing: -0.03em; }
+  h2 { letter-spacing: -0.02em; }
+  p { text-wrap: pretty; }
+
+  ::selection { background: rgb(var(--accent) / 0.25); }
+
+  :focus-visible { outline: none; }
+
+  img { @apply select-none; }
+
+  select, input[type='date'] { color-scheme: inherit; }
+  input[type='checkbox'], input[type='radio'] { accent-color: rgb(var(--accent)); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.18em] text-muted;
+  }
+  .page-container {
+    @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12;
+  }
+}
