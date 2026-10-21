@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -8,6 +9,11 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // TiDB may have partially created this table during a failed migration.
+        if (Schema::hasTable('products')) {
+            return;
+        }
+
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained()->restrictOnDelete();
@@ -28,10 +34,6 @@ return new class extends Migration
 
             $table->index(['category_id', 'is_active', 'price_cents']);
             $table->index('is_featured');
-
-            if (Schema::getConnection()->getDriverName() === 'mysql') {
-                $table->fullText(['name', 'description']);
-            }
         });
     }
 
